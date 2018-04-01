@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" metadata-complete="true" version="3.1">
+  <display-name>JMX Web Application</display-name>
+  <absolute-ordering/>
+  <filter>
+    <filter-name>charsetEncoding</filter-name>
+    <filter-class>com.psr.jmx.filter.CharsetEncodingFilter</filter-class>
+  </filter>
+  <filter>
+    <filter-name>basicAuthenticationFilter</filter-name>
+    <filter-class>com.psr.jmx.filter.BasicAuthenticationFilter</filter-class>
+    <init-param>
+      <param-name>enabled</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>username</param-name>
+      <param-value>admin</param-value>
+    </init-param>
+    <init-param>
+      <param-name>password</param-name>
+      <param-value>password</param-value>
+    </init-param>
+  </filter>
+  <servlet>
+    <servlet-name>MBeanAdaptor</servlet-name>
+    <servlet-class>com.psr.jmx.servlet.MBeanAdaptorServlet</servlet-class>
+  </servlet>
+  <filter-mapping>
+    <filter-name>charsetEncoding</filter-name>
+    <url-pattern>/MBeanAdaptor</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>basicAuthenticationFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <servlet-mapping>
+    <servlet-name>MBeanAdaptor</servlet-name>
+    <url-pattern>/MBeanAdaptor</url-pattern>
+  </servlet-mapping>
+  <listener>
+    <listener-class>com.psr.jmx.listener.JmxContextListener</listener-class>
+  </listener>
+</web-app>
